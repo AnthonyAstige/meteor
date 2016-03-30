@@ -446,8 +446,11 @@ var VALUE_OPERATORS = {
         // XXX: for now, we don't calculate the actual distance between, say,
         // polygon and circle. If people care about this use-case it will get
         // a priority.
-        if (!value || !value.type)
+        if (!value)
           return null;
+        if(!value.type)
+          return GeoJSON.pointDistance(point,
+            { type: "Point", coordinates: pointToArray(value) });
         if (value.type === "Point") {
           return GeoJSON.pointDistance(point, value);
         } else {
